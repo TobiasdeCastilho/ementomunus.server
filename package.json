@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "services:dev:down": "sudo docker compose -f containers/compose.dev.yaml down",
+    "services:dev:stop": "sudo docker compose -f containers/compose.dev.yaml stop",
+    "services:dev:up": "sudo docker compose -f containers/compose.dev.yaml up -d",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -23,6 +26,8 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@prisma/client": "^6.1.0",
+    "@prisma/extension-accelerate": "^1.2.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
@@ -67,3 +72,4 @@
     "testEnvironment": "node"
   }
 }
+
