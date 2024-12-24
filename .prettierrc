@@ -1,4 +1,7 @@
 {
+  "bracketSameLine": false,
+  "endOfLine": "crlf",
   "singleQuote": true,
-  "trailingComma": "all"
+  "tabWidth": 2,
+  "trailingComma": "none"
 }
