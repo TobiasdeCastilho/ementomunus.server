@@ -19,7 +19,79 @@ model User {
 	username String @unique
 	password String 
 	email String @unique
-	first_name String?
-	last_name String?
 	state State @default(WAITING)
+	created_at DateTime @default(now())
+	updated_at DateTime @updatedAt @default(now())
+
+	quests Quest[]
+	balances UserBalance[]
+}
+
+model PrizeType {
+	id String @id @default(uuid())
+	description String
+	signal String	
+
+	balances UserBalance[]	
+	prizes QuestPrize[]
+}
+
+model UserBalance {
+	id String @id @default(uuid())
+	amount Float
+
+	user User @relation(fields: [user_id], references: [id])
+	user_id String
+
+	prize_type PrizeType @relation(fields: [prize_type_id], references: [id])
+	prize_type_id String
+
+	user_balance_use UserBalanceUse[]	
+}
+
+model UserBalanceUse {
+	id String @id @default(uuid())
+	amount Float
+	created_at DateTime @default(now())
+
+	balance UserBalance @relation(fields: [balance_id], references: [id])
+	balance_id String	
+}
+
+enum QuestState {
+	ACTIVE
+	COMPLETED
+	FAILED
+}
+
+model Quest {
+	id String @id @default(uuid())	
+	title String
+	description String	
+	state QuestState @default(ACTIVE)
+	limit DateTime
+
+	created_at DateTime @default(now())
+	updatedAt DateTime @updatedAt	
+	
+	user User @relation(fields: [user_id], references: [id])
+	user_id String	
+	
+	mainquest Quest? @relation(fields: [mainquest_id], references: [id], name: "SubquestRelation")
+	mainquest_id String?
+
+	subquests Quest[] @relation(name: "SubquestRelation")
+
+	QuestPrize QuestPrize[]
+}
+
+model QuestPrize {
+	id String @id @default(uuid())
+	quantity Int
+
+	quest Quest @relation(fields: [quest_id], references: [id])
+	quest_id String
+	
+	type PrizeType @relation(fields: [type_id], references: [id])
+	type_id String
 }
