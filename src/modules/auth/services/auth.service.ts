@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as Prisma from '@prisma/client';
-import { compareSync, hashSync } from 'bcrypt-ts';
+import { compareSync } from 'bcrypt-ts';
 
 /* Project */
 import { EXCEPTIONS } from 'types/utils/exceptions';
-import { APIException } from '../../../utils/exceptions.utils';
 import { PrismaService } from '../../../services/prisma.service';
+import { APIException } from '../../../utils/exceptions.utils';
 
 @Injectable()
 export class AuthService {
@@ -32,26 +32,6 @@ export class AuthService {
       throw new APIException(EXCEPTIONS.USER_OR_PASSWORD_INCORRECT);
 
     return this.getToken(user);
-  }
-
-  async register(payload: {
-    username: string;
-    email: string;
-    password: string;
-  }): Promise<void> {
-    const user = await this.prisma.user.findUnique({
-      where: { email: payload.email }
-    });
-
-    if (user) throw new APIException(EXCEPTIONS.USER_ALREADY_EXISTS);
-
-    await this.prisma.user.create({
-      data: {
-        username: payload.username,
-        email: payload.email,
-        password: hashSync(payload.password, 10)
-      }
-    });
   }
 
   forgot(payload: { email: string; password: string }): string {
