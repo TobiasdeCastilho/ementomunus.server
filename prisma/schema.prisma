@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"	
+  url      = env("DATABASE_URL")
+}
+
+enum State {
+	ACTIVE
+	BANNED
+	INACTIVE
+	WAITING
+}
+
+model User {
+	id String @id @default(uuid())
+	username String @unique
+	password String 
+	email String @unique
+	first_name String?
+	last_name String?
+	state State @default(WAITING)
+}
