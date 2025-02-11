@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as Prisma from '@prisma/client';
-import bcrypt from 'bcrypt';
+import { compareSync, hashSync } from 'bcrypt-ts';
 
 /* Project */
 import { EXCEPTIONS } from 'types/utils/exceptions';
 import { APIException } from '../../../utils/exceptions.utils';
 import { PrismaService } from '../../../services/prisma.service';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +28,7 @@ export class AuthService {
       where: { email: payload.email }
     });
 
-    if (!user || user.password !== payload.password)
+    if (!user || !compareSync(payload.password, user.password))
       throw new APIException(EXCEPTIONS.USER_OR_PASSWORD_INCORRECT);
 
     return this.getToken(user);
@@ -49,7 +49,7 @@ export class AuthService {
       data: {
         username: payload.username,
         email: payload.email,
-        password: bcrypt.hashSync(payload.password, 10)
+        password: hashSync(payload.password, 10)
       }
     });
   }
