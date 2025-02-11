@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 /* Project */
 import { Authorized } from 'src/decorators/authorized.decorator';
-import { SubquestService } from '../services/subquest.service';
+import { SubquestService } from './subquest.service';
 
 @Authorized()
 @Controller('/quest/:questId/subquest')

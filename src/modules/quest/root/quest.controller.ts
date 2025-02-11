@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 /* Project */
 import { Authorized } from 'src/decorators/authorized.decorator';
-import { QuestService } from '../services/quest.service';
+import { QuestService } from './quest.service';
 
 @Authorized()
 @Controller('/quest')

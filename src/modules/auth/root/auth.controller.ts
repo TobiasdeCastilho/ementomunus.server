@@ -3,7 +3,7 @@ import { Body, Controller, Get, Put } from '@nestjs/common';
 /* Project */
 import * as AuthRequest from '../../../../types/api/request/auth.request';
 import { ZodPipe } from '../../../pipes/zod.pipe';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 
 @Controller('/auth')
 export class AuthController {
