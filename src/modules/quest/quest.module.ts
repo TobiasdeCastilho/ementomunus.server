@@ -2,8 +2,8 @@
 import { PrismaService } from 'src/services/prisma.service';
 import { SubquestController } from './subquest/subquest.controller';
 import { SubquestService } from './subquest/subquest.service';
-import { QuestController } from './root/quest.controller';
-import { QuestService } from './root/quest.service';
+import { QuestController } from './main/quest.controller';
+import { QuestService } from './main/quest.service';
 import { Module } from '@nestjs/common';
 
 @Module({

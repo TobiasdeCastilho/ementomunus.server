@@ -5,6 +5,7 @@ import { EXCEPTIONS } from 'types/utils/exceptions';
 /* Project */
 import { PrismaService } from '../../../services/prisma.service';
 import { hashSync } from 'bcrypt-ts';
+import { Blocked } from 'src/decorators/blocked.decorator';
 
 @Injectable()
 export class UserService {
@@ -13,9 +14,7 @@ export class UserService {
   async confirm(payload: {
     firstName: string;
     lastName: string;
-  }): Promise<void> {
-    throw new Error('Not implemented');
-  }
+  }): Promise<void> {}
 
   async register(payload: {
     username: string;
